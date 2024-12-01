@@ -1,45 +1,49 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xml:lang="pt-BR">
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xml:lang="pt-BR">
 
-    <h:head> 
-        <title>Cadastro de Pessoas</title>
-    </h:head>
+<h:head>
+    <title>Cadastro de Pessoas!</title>
+</h:head>
 
-    <h:graphicImage value="/images/abacaxi.png" style="float: right" width="100" height="100"/><!--ABACAXI!-->
-    <h:body style="background-color: cyan;">
-        <h:form style="color: blue;"> 
-            id <h:inputText value="#{beanJFPessoa.id}" size="10" style="font-size: 30px;"/> <!--Recebe o ID da pessoa-->
-            nome <h:inputText value="#{beanJFPessoa.nome}" size="30" style="font-size: 30px;"/> <!--Recebe o nome da pessoa-->
+<h:graphicImage value="/images/abacaxi.png" style="float: right" width="100" height="100" /><!--ABACAXI!-->
+<h:body style="background-color: cyan;">
+    <h:form style="color: blue;">
+        id
+        <h:inputText value="#{beanJFPessoa.id}" size="10" style="font-size: 30px;" /> <!--Adição do ID da pessoa-->
+        nome
+        <h:inputText value="#{beanJFPessoa.nome}" size="30" style="font-size: 30px;" /> <!--Adição do Nome da pessoa-->
 
-            <h:selectOneMenu value="#{beanJFPessoa.cidade}">
-                <f:selectItem itemValue="" itemLabel="=== Selecione uma Cidade ===" />
-                <f:selectItems value="#{beanJFCidade.all}" var="c" itemLabel="#{c.nome}" itemValue="#{c.id}" />
-            </h:selectOneMenu> <!--Seleção da cidade da pessoa-->
-            <h:commandButton value="[]" action="#{beanJFPessoa.newID()}" />
-            <h:commandButton value="+" action="#{beanJFPessoa.add()}" />
-        </h:form>
-    <hr/>
-        <h2 style="color: blue; font-size: 40px;">== Lista de clientes cadastrados ==</h2>
-        <h:form>
-            <h:dataTable value="#{beanJFPessoa.all}" style="color: red" var="pessoa">
-                <h:column>
-                    <h:outputText value="#{pessoa.id}" />
-                </h:column>
-                <h:column>
-                    <h:outputText value="#{pessoa.nome}" />
-                </h:column>
-                <h:column>
-                    <h:outputText value="#{pessoa.cidade.nome}" />
-                </h:column>
+        <h:selectOneMenu value="#{beanJFPessoa.cidade}">
+            <f:selectItem itemValue="" itemLabel="=== Selecione uma Cidade ===" />
+            <f:selectItems value="#{beanJFCidade.all}" var="c" itemLabel="#{c.nome}" itemValue="#{c.id}" />
+        </h:selectOneMenu><!--Seleção da Cidade da pessoa-->
+        <h:commandButton valueS="[]" action="#{beanJFPessoa.newID()}" />
+        <h:commandButton value="+" action="#{beanJFPessoa.add()}" />
+    </h:form>
+    <hr />
+    <h2 style="color: blue; font-size: 40px;">== Lista de clientes cadastrados ==</h2>
+    <h:form>
+        <h:dataTable value="#{beanJFPessoa.all}" style="color: red" var="pessoa">
+            <h:column>
+                <h:outputText value="#{pessoa.id}" />
+            </h:column>
+            <h:column>
+                <h:outputText value="#{pessoa.nome}" />
+            </h:column>
+            <h:column>
+                <h:outputText value="#{pessoa.cidade.nome}" />
+            </h:column>
 
-            </h:dataTable>
-        </h:form>
-<h:form>
-    <br/><br/><br/>
-    <h:outputLink style="color: blue;" value="#{facesContext.externalContext.requestContextPath}/rest/application.wadl">WADL</h:outputLink>
-</h:form>
-    </h:body>
+        </h:dataTable>
+    </h:form>
+    <h:form>
+        <br /><br /><br />
+        <h:outputLink style="color: blue;"
+            value="#{facesContext.externalContext.requestContextPath}/rest/application.wadl">WADL</h:outputLink>
+    </h:form>
+</h:body>
+
 </html>
