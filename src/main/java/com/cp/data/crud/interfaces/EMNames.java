@@ -26,13 +26,13 @@ public class EMNames implements Serializable {
         String BD_producao = System.getenv("DATABASE_URL");
         Map<String, String> properties = new HashMap<>();
         if (BD_producao == null) { //caso nao tenha a variavel de ambiente
-            AppLog.getInstance().info("Configurar banco de dados para acesso local");
+            AppLog.getInstance().info("Inicio da Configuracao do  banco de dados para acesso local");
             properties.put("jakarta.persistence.jdbc.url", "jdbc:postgresql://localhost:5432/localdb");
             properties.put("jakarta.persistence.jdbc.user", "postgres");
             properties.put("jakarta.persistence.jdbc.driver", "org.postgresql.Driver");
             properties.put("jakarta.persistence.jdbc.password", "postgres");
         } else { //se a variavel de ambiente foi criada, indica que o projeto está alocado em producao
-            AppLog.getInstance().info("#### Configurar banco de dados em producao #### ");
+            AppLog.getInstance().info("#### Inicio da Configuracao do banco de dados em producao #### ");
             String jdbc_database_username = System.getenv("DATABASE_USERNAME");
             String jdbc_database_password = System.getenv("DATABASE_PASSWORD");
             System.out.println("variaveis: " +jdbc_database_username +":"+jdbc_database_password);
@@ -46,7 +46,7 @@ public class EMNames implements Serializable {
                 System.out.println("Carregar driver");
                 Class.forName("org.postgresql.Driver");
             }catch(Exception e){
-                System.out.println("ERRO #############################");
+                System.out.println("ERRO inesperado #############################");
             }
 
            }
