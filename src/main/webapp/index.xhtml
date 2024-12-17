@@ -8,7 +8,7 @@
     <title>Cadastro de Pessoas!</title>
 </h:head>
 
-<h:graphicImage value="/images/abacaxi.png" style="float: right" width="100" height="100" /><!--ABACAXI!-->
+<h:graphicImage value="/images/abacaxi.png" style="float: right" width="100" height="100" /><!--Imagem do Abacaxi-->
 <h:body style="background-color: rgb(8, 92, 170);">
     <h:form style="color: blue;">
         id
@@ -16,13 +16,13 @@
         nome
         <h:inputText value="#{beanJFPessoa.nome}" size="30" style="font-size: 30px;" /> <!--Adição do Nome da pessoa-->
 
-        <h:selectOneMenu value="#{beanJFPessoa.cidade}">
+        <h:selectOneMenu value="#{beanJFPessoa.cidade}"> <!--Menu Seletor de Cidade -->
             <f:selectItem itemValue="" itemLabel="=== Selecione uma Cidade ===" />
             <f:selectItems value="#{beanJFCidade.all}" var="c" itemLabel="#{c.nome}" itemValue="#{c.id}" />
         </h:selectOneMenu><!--Seleção da Cidade da pessoa-->
         <h:commandButton valueS="[]" action="#{beanJFPessoa.newID()}" />
         <h:commandButton value="+" action="#{beanJFPessoa.add()}" />
-    </h:form>
+    </h:form> <!--Lista dos Clientes cadastrados-->
     <hr />
     <h2 style="color: blue; font-size: 40px;">== Lista de clientes cadastrados ==</h2>
     <h:form>
