@@ -68,7 +68,7 @@ public abstract class AbstractCrud<T> {
             getEntityManager().remove(getEntityManager().merge(entity));
             getEntityManager().flush();
             getEntityManager().getTransaction().commit();
-            AppLog.getInstance().info("Registro removido com sucesso pela classe: " + this.getClass().getName());
+            AppLog.getInstance().info("O dado foi deletado com exito pela classe: " + this.getClass().getName());
             return null;
         } catch (Exception e) {
             return e;
