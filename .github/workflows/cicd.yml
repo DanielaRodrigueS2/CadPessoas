@@ -1,0 +1,62 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v3
+
+      - name: Configurar Java e Maven
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '20'
+
+      - name: Compilar o projeto
+        run: ./mvnw clean package
+
+      - name: Executar testes
+        run: ./mvnw test
+
+  docker:
+    name: Build and Push Docker Image
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v3
+
+      - name: Login no Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Construir e enviar imagem Docker
+        run: |
+          docker build -t danielarodrigues2/cadpessoas:v1 .
+          docker push danielarodrigues2/cadpessoas:v1
+
+  deploy:
+    name: Deploy to Server
+    needs: docker
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Conectar ao servidor via SSH e atualizar container
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            docker pull danielarodrigues2/cadpessoas:v1
+            docker stop cadpessoas || true
+            docker run -d --rm -e DATABASE_URL="jdbc:postgresql://192.168.0.110:5432/localdb" \
+            -e DATABASE_USERNAME="postgres" -e DATABASE_PASSWORD="postgres" -p 8080:8080 --name cadpessoas danielarodrigues2/cadpessoas:v1
